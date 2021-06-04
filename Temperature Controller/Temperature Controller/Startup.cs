@@ -29,10 +29,10 @@ namespace Temperature_Controller
         {
 
             services.AddControllers();
-            services.AddSingleton<ValuesHolder>();
+            services.AddSingleton<IValuesHolder, ValuesHolder>();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Temperature_Controller", Version = "v1" });
+                c.SwaggerDoc("v0.1", new OpenApiInfo { Title = "Temperature_Controller", Version = "v0.1" });
             });
         }
 
