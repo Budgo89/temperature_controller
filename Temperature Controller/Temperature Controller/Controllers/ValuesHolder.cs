@@ -7,17 +7,17 @@ namespace Temperature_Controller.Controllers
 {
     public class ValuesHolder : IValuesHolder
     {
-        public List<TemperatureClass> temperatureData = new List<TemperatureClass>();
+        public List<Temperature> temperatureData = new List<Temperature>();
         public ValuesHolder(){}
 
-        public void Add(string temperatur, string time)
+        public void Add(int temperatur, DateTime time)
         {
-            var temperatureClass = CreateClass(temperatur, time);
+            var temperatureClass = new Temperature(temperatur, time);
             temperatureData.Add(temperatureClass);
         }
-        public void Update(string temperatur, string time)
-        {
-            var temperatureClass = CreateClass(temperatur, time);
+        public void Update(int temperatur, DateTime time)
+        {            
+            var temperatureClass = new Temperature(temperatur, time);
             foreach (var item in temperatureData)
             {
                 if (item.Time == temperatureClass.Time)
@@ -28,28 +28,25 @@ namespace Temperature_Controller.Controllers
                 }
             }
         }
-        public object Get(string timeOne, string timeTwo)
-        {
-            temperatureData.Sort(delegate (TemperatureClass us1, TemperatureClass us2) { return us1.Time.CompareTo(us2.Time); });
-            List<String> GetTemperatureDataTime = new List<string>();
+        public object Get(DateTime timeOne, DateTime timeTwo)
+        {            
+            List<Temperature> GetTemperatureDataTime = new List<Temperature>();
             
             foreach (var item in temperatureData)
             {
-                if (Convert.ToDateTime(item.Time) >= Convert.ToDateTime(timeOne) && Convert.ToDateTime(item.Time) <= Convert.ToDateTime(timeTwo))
-                {
-                    string temperatureDataString = item.Temperatur +" "+ item.Time;
-                    GetTemperatureDataTime.Add(temperatureDataString);
+                if (item.Time >= timeOne && item.Time <= timeTwo)
+                {                    
+                    GetTemperatureDataTime.Add(item);
                 }
             }
             return GetTemperatureDataTime;
         }
-        public void Delete(string timeOne, string timeTwo)
+        public void Delete(DateTime timeOne, DateTime timeTwo)
         {
-            temperatureData.Sort(delegate (TemperatureClass us1, TemperatureClass us2) { return us1.Time.CompareTo(us2.Time); });
-            List<TemperatureClass> GetTemperatureDataTime = new List<TemperatureClass>();
+            List<Temperature> GetTemperatureDataTime = new List<Temperature>();
             foreach (var item in temperatureData)
             {
-                if (Convert.ToDateTime(item.Time) >= Convert.ToDateTime(timeOne) && Convert.ToDateTime(item.Time) <= Convert.ToDateTime(timeTwo))
+                if (item.Time >= timeOne && item.Time <= timeTwo)
                 {
                     GetTemperatureDataTime.Add(item);
                 }
@@ -62,17 +59,6 @@ namespace Temperature_Controller.Controllers
                 }
             }
         }
-
-        private TemperatureClass CreateClass(string temperatur, string time)
-        {
-            var temperatureClass = new TemperatureClass()
-            {
-                Temperatur = temperatur,
-                Time = time
-            };
-            return temperatureClass;
-        }
-
 
     }
 }

@@ -20,10 +20,10 @@ namespace Temperature_Controller.Controllers
         /// 
         /// </summary>
         /// <param name="temperatur"> формат ввода 11 </param>
-        /// <param name="time"> формат ввода 11:30 </param>
+        /// <param name="time"> формат ввода 2021-05-20T11:00:02 </param>
         /// <returns></returns>
         [HttpPost("create")]
-        public IActionResult Create([FromQuery] string temperatur, [FromQuery] string time)
+        public IActionResult Create([FromQuery] int temperatur, [FromQuery] DateTime time)
         {
             _holder.Add(temperatur, time);   
             return Ok();
@@ -31,11 +31,11 @@ namespace Temperature_Controller.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="timeOne">формат ввода 11:30</param>
-        /// <param name="timeTwo">формат ввода 11:30</param>
+        /// <param name="timeOne">формат ввода 2021-05-20T11:00:02</param>
+        /// <param name="timeTwo">формат ввода 2021-05-20T11:00:02</param>
         /// <returns></returns>
         [HttpGet("read")]
-        public IActionResult Read([FromQuery] string timeOne, [FromQuery] string timeTwo)
+        public IActionResult Read([FromQuery] DateTime timeOne, [FromQuery] DateTime timeTwo)
         {
             return Ok(_holder.Get(timeOne, timeTwo));
         }
@@ -43,10 +43,10 @@ namespace Temperature_Controller.Controllers
         /// 
         /// </summary>
         /// <param name="temperatur"> формат ввода 11 </param>
-        /// <param name="time"> формат ввода 11:30 </param>
+        /// <param name="time"> формат ввода 2021-05-20T11:00:02 </param>
         /// <returns></returns>
         [HttpPut("update")]
-        public IActionResult Update([FromQuery] string temperatur, [FromQuery] string time)
+        public IActionResult Update([FromQuery] int temperatur, [FromQuery] DateTime time)
         {
             _holder.Update(temperatur, time);
             return Ok();
@@ -54,11 +54,11 @@ namespace Temperature_Controller.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="timeOne">формат ввода 11:30</param>
-        /// <param name="timeTwo">формат ввода 11:30</param>
+        /// <param name="timeOne">формат ввода 2021-05-20T11:00:02</param>
+        /// <param name="timeTwo">формат ввода 2021-05-20T11:00:02</param>
         /// <returns></returns>
         [HttpDelete("delete")]
-        public IActionResult Delete([FromQuery] string timeOne, [FromQuery] string timeTwo)
+        public IActionResult Delete([FromQuery] DateTime timeOne, [FromQuery] DateTime timeTwo)
         {
             _holder.Delete(timeOne, timeTwo);
             return Ok();
