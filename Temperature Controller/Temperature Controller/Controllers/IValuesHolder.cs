@@ -1,10 +1,12 @@
-﻿namespace Temperature_Controller.Controllers
+﻿using System;
+
+namespace Temperature_Controller.Controllers
 {
     public interface IValuesHolder
     {
-        void Add(string temperatur, string time);
-        void Update(string temperatur, string time);
-        object Get(string timeOne, string timeTwo);
-        void Delete(string timeOne, string timeTwo);
+        void Add(int temperatur, DateTime time);
+        void Update(int temperatur, DateTime time);
+        object Get(DateTime timeOne, DateTime timeTwo);
+        void Delete(DateTime timeOne, DateTime timeTwo);
     }
 }
